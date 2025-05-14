@@ -19,3 +19,6 @@ class Node:
         self.color = (255, 0, 0)
     def make_wall(self):
         self.color = (0, 0, 0)
+
+    def reset(self):
+        self.color = (255, 255, 255)

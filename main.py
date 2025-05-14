@@ -54,23 +54,52 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    start =  None
+                    end = None
+                    for row in grid:
+                        for node in row:
+                            node.reset()
 
             if pygame.mouse.get_pressed()[0]:
                 pos = pygame.mouse.get_pos()
                 row = pos[1] // (WIDTH // ROWS)
                 col = pos[0] // (WIDTH // ROWS)
-                node = grid[row][col]
 
-                if not start:
-                    start = node
-                    node.make_start()
+                if 0 <= row < ROWS and 0 <= col < ROWS:
+                    node = grid[row][col]
 
-                elif not end and node != start:
-                    end = node
-                    node.make_end()
+                    if not start:
+                        start = node
+                        node.make_start()
 
-                elif node != end and node != start:
-                    node.make_wall()
+                    elif not end and node != start:
+                        end = node
+                        node.make_end()
+
+                    elif node != end and node != start:
+                        node.make_wall()
+
+            elif pygame.mouse.get_pressed()[2]:
+                pos = pygame.mouse.get_pos()
+                row = pos[1] // (WIDTH // ROWS)
+                col = pos[0] // (WIDTH // ROWS)
+
+                if 0 <= row < ROWS and 0 <= col < ROWS:
+                    node = grid[row][col]
+
+                    if node == start:
+                        start = None
+                        node.reset()
+
+                    elif node == end:
+                        end = None
+                        node.reset()
+
+                    else:
+                        node.reset()
 
     pygame.quit()
 
