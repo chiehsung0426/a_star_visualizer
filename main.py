@@ -1,5 +1,6 @@
 import pygame
 from node import Node
+from algorithm import a_star
 
 WIDTH = 640
 ROWS = 20
@@ -46,6 +47,11 @@ def main():
     end = None
 
     run = True
+
+    for row in grid:
+        for node in row:
+            node.update_neighbors(grid)
+
     while run:
 
         draw(WIN, grid, ROWS, WIDTH)
@@ -55,13 +61,20 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
             
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN: #SPACE to reset
                 if event.key == pygame.K_SPACE:
                     start =  None
                     end = None
                     for row in grid:
                         for node in row:
                             node.reset()
+                
+                elif event.key == pygame.K_RETURN:
+                    for row in grid:
+                        for node in row:
+                            node.update_neighbors(grid)
+                    
+                    a_star(lambda: draw(WIN, grid, ROWS, WIDTH), grid, start, end)
 
             if pygame.mouse.get_pressed()[0]:
                 pos = pygame.mouse.get_pos()
