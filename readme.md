@@ -20,8 +20,9 @@
 
 Install using pip:
 
-``bash
+```bash
 pip install -r requirements.txt 
+```
 
 ## 🧠 How It Works
 
