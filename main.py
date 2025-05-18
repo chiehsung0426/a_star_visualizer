@@ -1,4 +1,5 @@
 import pygame
+import random
 from node import Node
 from algorithm import a_star
 
@@ -39,6 +40,12 @@ def draw(win, grid, rows, width):
     draw_grid(win, rows, width)
     pygame.display.update()
 
+def generate_maze(grid, start, end):
+    for row in grid:
+        for node in row:
+            if node != start and node != end:
+                if random.random() < 0.3:
+                    node.make_wall()
 
 def main():
     grid = make_grid(ROWS, WIDTH)
@@ -75,6 +82,9 @@ def main():
                             node.update_neighbors(grid)
                     
                     a_star(lambda: draw(WIN, grid, ROWS, WIDTH), grid, start, end)
+                
+                elif event.key == pygame.K_m:
+                    generate_maze(grid, start, end)
 
             if pygame.mouse.get_pressed()[0]:
                 pos = pygame.mouse.get_pos()
