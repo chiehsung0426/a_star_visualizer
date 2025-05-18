@@ -2,6 +2,7 @@ import pygame
 import random
 from node import Node
 from algorithm import a_star
+from ui import draw_instructions
 
 WIDTH = 640
 ROWS = 20
@@ -38,6 +39,7 @@ def draw(win, grid, rows, width):
             node.draw(win) #draw color for each grid
     
     draw_grid(win, rows, width)
+    draw_instructions(win, width) 
     pygame.display.update()
 
 def generate_maze(grid, start, end):
